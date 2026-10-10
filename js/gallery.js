@@ -86,36 +86,30 @@ const galleryItem = images
 gallery.innerHTML = galleryItem;
 
 gallery.addEventListener('click', (event) => {
-  event.preventDefault();
-  const target = event.target;
-  if (!target.classList.contains('gallery-image')) {
+  const image = event.target;
+
+  if (!image.classList.contains('gallery-image')) {
     return;
   }
-  const imageUrl = target.getAttribute('data-source');
-  const imageDescription = target.getAttribute('alt');
 
-  const instance = basicLightbox.create(`
-  <img
-    src="${imageUrl}"
-    alt="${imageDescription}"
-  />
-`);
+  event.preventDefault();
 
-  instance.show();
+  const imageUrl = image.getAttribute('data-source');
+  const description = image.getAttribute('alt');
+
+  const closeOnEscape = (event) => {
+    if (event.key === 'Escape') {
+      lightbox.close();
+    }
+  };
+
+  const lightbox = basicLightbox.create(
+    `<img src="${imageUrl}" alt="${description}" />`,
+    {
+      onShow: () => document.addEventListener('keydown', closeOnEscape),
+      onClose: () => document.removeEventListener('keydown', closeOnEscape),
+    },
+  );
+
+  lightbox.show();
 });
-
-const closeOnEscape = (event) => {
-  if (event.key === 'Escape') {
-    modal.close();
-  }
-};
-
-const modal = basicLightbox.create(
-  `<img src="${imageUrl}" alt="${target.alt}" />`,
-  {
-    onShow: () => document.addEventListener('keydown', closeOnEscape),
-    onClose: () => document.removeEventListener('keydown', closeOnEscape),
-  },
-);
-
-modal.show();
