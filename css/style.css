@@ -1,0 +1,30 @@
+.gallery {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  list-style: none;
+}
+.gallery-item {
+  width: 360px;
+}
+
+.gallery-link {
+  display: block;
+  cursor: pointer;
+}
+
+.gallery-image {
+  display: block;
+  width: 360px;
+  height: 200px;
+}
+
+.basicLightbox {
+  background: rgba(#2e2f42cc 0.8);
+}
